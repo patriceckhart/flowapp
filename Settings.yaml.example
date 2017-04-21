@@ -1,0 +1,12 @@
+
+Neos:
+  Flow:
+    persistence:
+      backendOptions:
+        host: flowapp-mysql
+        driver: pdo_mysql
+        dbname: admin
+        user: admin
+        password: pass
+  Imagine:
+    driver: Imagick
