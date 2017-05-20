@@ -6,16 +6,19 @@ flowapp-mysql:
     - MYSQL_DATABASE=admin
     - MYSQL_USER=admin
     - MYSQL_PASSWORD=pass
+  user: "1000:50"
   volumes:
       - ./_mysql/:/var/lib/mysql
   ports:
    - "3306:3306"
 
 flowapp-webserver:
-  image: phpdockerio/nginx:latest
+  image: nginx:alpine
   container_name: flowapp-webserver
+  domainname: server.dev
+  hostname: server
   volumes:
-      - ./_public/:/var/www/flowapp
+      - flowappweb-sync:/var/www/flowapp:rw
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
   ports:
    - "80:80"
@@ -27,7 +30,7 @@ flowapp-php-fpm:
   dockerfile: php-fpm/Dockerfile
   container_name: flowapp-php-fpm
   volumes:
-    - ./_public/:/var/www/flowapp
+    - flowappweb-sync:/var/www/flowapp:rw
     - ./php-fpm/php-ini-overrides.ini:/etc/php/7.1/fpm/conf.d/99-overrides.ini
   links:
     - flowapp-mysql
