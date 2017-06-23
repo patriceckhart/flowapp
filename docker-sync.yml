@@ -4,7 +4,6 @@ syncs:
     src: './_public'
     sync_host_port: 10872
     sync_strategy: 'unison'
-    sync_user: 'www-data'
     sync_userid: '33'
     # sync_group: 'www-data'
     # sync_groupid: '33'
